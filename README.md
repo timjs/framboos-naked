@@ -3,11 +3,19 @@
 ## Preparation
 
 ### Ubuntu
-* Install dependencies: `sudo apt install gcc-arm-none-eabi build-essential qemu`
+* Install dependencies:
+```sh
+> sudo apt update
+> sudo apt install gcc-arm-none-eabi build-essential qemu-system-arm qemu
+```
 
 ### Mac
 1. Install [Homebrew] (this will also install the XCode Developer Tools if not yet installed)
-2. Install dependencies: `brew install gcc-arm-embedded make git qemu`
+2. Install dependencies:
+   ```sh
+   > brew update
+   > brew install gcc-arm-embedded make git qemu`
+   ```
 
 [Homebrew]: https://brew.sh
 
