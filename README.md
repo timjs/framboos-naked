@@ -1,6 +1,6 @@
 # FramboOS
 
-## Preparation
+## Prepare
 
 ### Ubuntu
 * Install dependencies:
@@ -19,7 +19,7 @@
 
 [Homebrew]: https://brew.sh
 
-## Windows
+### Windows
 * Install [WSL]
 * Open the WSL shell and follow the instructions for Ubuntu above
 
@@ -33,12 +33,12 @@ change the `TARGET` variable at the top of `build/Makefile` from `raspi2b` to `r
 
 [WSL]: https://docs.microsoft.com/en-us/windows/wsl/install
 
-## Building
+## Build
 
 * `cd` into `build/`
 * Run `make build` to build
 
-## Running
+## Run
 
 * To run in QEMU:
     - `cd` into `build/`,
@@ -50,7 +50,7 @@ change the `TARGET` variable at the top of `build/Makefile` from `raspi2b` to `r
     - Insert the SD card into the Raspberry Pi and power it up.
     - **Note:** You'll need to run this on a Raspberry Pi 2B.
 
-## VSCode
+## Code
 
 If you're using VSCode, you should install some extensions:
 
