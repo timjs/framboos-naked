@@ -6,6 +6,7 @@ OBJCOPY = arm-none-eabi-objcopy
 ## CPU and Architecture names ##################################################
 CPU = cortex-a7
 ARCH = arm
+TARGET = raspi2b
 IMAGE = kernel7
 
 ## Flags #######################################################################
@@ -53,9 +54,9 @@ clean:
 	rm $(IMAGE).img
 
 run: build
-	qemu-system-$(ARCH) -m 1G -M raspi2b -serial stdio -kernel $(IMAGE).elf
+	qemu-system-$(ARCH) -m 1G -M $(TARGET) -serial stdio -kernel $(IMAGE).elf
 
 debug: build
-	qemu-system-$(ARCH) -m 1G -M raspi2b -serial stdio -s -S -kernel $(IMAGE).elf
+	qemu-system-$(ARCH) -m 1G -M $(TARGET) -serial stdio -s -S -kernel $(IMAGE).elf
 
 all: build

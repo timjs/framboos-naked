@@ -23,6 +23,14 @@
 * Install [WSL]
 * Open the WSL shell and follow the instructions for Ubuntu above
 
+**Note**
+When you're using [WSL] it could be you'll get a significant older version of Qemu which does not recognise `raspi2b` as a virtualisation target.
+If you get the error
+```
+qemu-system-arm: -M raspi2b: unsupported machine type 'raspi2b'
+```
+change the `TARGET` variable at the top of `build/Makefile` from `raspi2b` to `raspi2` and try again.
+
 [WSL]: https://docs.microsoft.com/en-us/windows/wsl/install
 
 ## Building
