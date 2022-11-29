@@ -14,7 +14,7 @@
 2. Install dependencies:
    ```sh
    > brew update
-   > brew install gcc-arm-embedded make git qemu`
+   > brew install gcc-arm-embedded make git qemu
    ```
 
 [Homebrew]: https://brew.sh
