@@ -10,7 +10,7 @@
    ```
 
 ### Mac
-1. Install [Homebrew] (this will also install the XCode Developer Tools if not yet installed)
+1. Install [Homebrew] (this will also install the XCode Developer Tools if not yet installed).
 2. Update Brew and install dependencies:
    ```sh
    > brew update
@@ -26,7 +26,7 @@
    ```sh
    > wsl --install
    ```
-3. Open the WSL shell and follow the instructions for Ubuntu above
+3. Open the WSL shell and follow the instructions for Ubuntu above.
 
 [WSL]: https://docs.microsoft.com/en-us/windows/wsl/install
 
@@ -62,20 +62,25 @@ See also this [AskUbuntu question](https://askubuntu.com/questions/1389908/runni
 
 ## Build
 
-* `cd` into `build/`
-* Run `make build` to build
+1. `cd` into `build/`.
+2. Run `make build` to build.
 
 ## Run
 
-* To run in QEMU:
-    - `cd` into `build/`,
-    - Run `make run`
-    - **Note:** `make run` will also build your project, so normally you only need to invoke `make run`
-* To run on real hardware:
-    - Prepare an SD card using the 'Raspberry Pi Imager': https://www.raspberrypi.com/software/
-    - Replace 'kernel7.img' with 'build/kernel7.img'
-    - Insert the SD card into the Raspberry Pi and power it up.
-    - **Note:** You'll need to run this on a Raspberry Pi 2B.
+### Run in QEMU
+
+1. `cd` into `build/`,
+2. Run `make run`
+
+**Note:** `make run` will also build your project, so normally you only need to invoke `make run`
+
+### Run on real hardware
+
+1. Prepare an SD card using the 'Raspberry Pi Imager': https://www.raspberrypi.com/software/
+2. Replace 'kernel7.img' with 'build/kernel7.img'
+3. Insert the SD card into the Raspberry Pi and power it up.
+
+**Note:** You'll need to run this on a Raspberry Pi 2B.
 
 ## Code
 
