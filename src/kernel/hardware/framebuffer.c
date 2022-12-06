@@ -10,13 +10,8 @@ framebuffer_info_t fbinfo = (framebuffer_info_t){
     .buf_size = 0,
 };
 
-framebuffer_info_t *framebuffer_init(void) {
-
-  if (fbinfo.buf != NULL) {
-    return &fbinfo;
-  }
-
-  uart_log_begin("Initializing framebuffer");
+void framebuffer_init(void) {
+  uart_log_begin("Initialising framebuffer");
   static uint32_t request[] __attribute__((aligned(16))) = {
       // Header
       0x70, // size
@@ -83,6 +78,9 @@ framebuffer_info_t *framebuffer_init(void) {
   fbinfo.buf = (uint8_t *)((intptr_t)request[23] & 0x3FFFFFFF);
   fbinfo.buf_size = request[24];
 
+  uart_log_info("Framebuffer has size %u, width %u, and height %u",
+                fbinfo.buf_size, fbinfo.width, fbinfo.height);
+
   uint32_t block_size = 32;
   for (size_t i = 0; i < fbinfo.buf_size; i++) {
     if ((i / fbinfo.pitch / block_size +
@@ -95,5 +93,7 @@ framebuffer_info_t *framebuffer_init(void) {
     }
   }
 
-  return &fbinfo;
+  uart_log_end("Framebuffer initialised");
 }
+
+framebuffer_info_t *framebuffer_get_info(void) { return &fbinfo; }

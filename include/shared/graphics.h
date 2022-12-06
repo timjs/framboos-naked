@@ -28,4 +28,5 @@ typedef struct {
 void draw_pixel(framebuffer_info_t *fb, point_t point, color_t color);
 void draw_rectangle(framebuffer_info_t *fb, area_t area, color_t color);
 void draw_character(framebuffer_info_t *fb, point_t pos, color_t col, char c);
-void draw_string(framebuffer_info_t *fb, point_t pos, color_t col, char *str);
+void draw_string(framebuffer_info_t *fb, point_t pos, color_t col,
+                 const char *str);

@@ -36,6 +36,6 @@ void draw_character(framebuffer_info_t *fb, point_t position, color_t color,
 }
 
 void draw_string(framebuffer_info_t *fb, point_t position, color_t color,
-                 char *str) {
+                 const char *str) {
   kernel_panic("No implementation of `draw_string`")
 }

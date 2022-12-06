@@ -49,7 +49,7 @@ void interrupt_enable(interrupt_id_t id) {
 }
 
 void interrupt_init() {
-  uart_log_begin("Initializing interrupts");
+  uart_log_begin("Initialising interrupts");
 
   // Make sure all interrupts are disabled
   interrupt_registers->irq_basic_disable = 0xffffffff;
@@ -65,4 +65,6 @@ void interrupt_init() {
   uart_log_info("Setting up interrupt stacks at 0x%x and 0x%x",
                 &irq_stack[STACK_SIZE], &fiq_stack[STACK_SIZE]);
   setup_interrupt_stacks(&irq_stack[STACK_SIZE], &fiq_stack[STACK_SIZE]);
+
+  uart_log_end("Interrupts initialised");
 }

@@ -14,4 +14,5 @@ typedef struct {
   size_t buf_size;
 } framebuffer_info_t;
 
-framebuffer_info_t *framebuffer_init(void);
+void framebuffer_init(void);
+framebuffer_info_t *framebuffer_get_info(void);

@@ -10,20 +10,17 @@
 
 #define US_PER_MS 1000
 
-framebuffer_info_t *fb;
-
 void kernel_init() {
   uart_init();
 
-  uart_log_begin("Initializing");
+  uart_log_begin("Initialising");
 
   interrupt_init();
 
-  fb = framebuffer_init();
-  uart_log_info("Framebuffer: address=0x%x, width=%u, height=%u, size=%u",
-                fb->buf, fb->width, fb->height, fb->buf_size);
+  framebuffer_init();
+  framebuffer_info_t *fb = framebuffer_get_info();
 
-  uart_log_end("Initialized kernel");
+  uart_log_end("Initialised kernel");
 }
 
 void kernel_main() { kernel_init(); }

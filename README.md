@@ -39,13 +39,13 @@ qemu-system-arm: -M raspi2b: unsupported machine type 'raspi2b'
 ```
 change the `TARGET` variable at the top of `build/Makefile` from `raspi2b` to `raspi2` and try again.
 
-#### Gtk initialization failed
+#### Gtk initialisation failed
 
 When you're Windows install is not completely up to date, you'll get a [WSL] version which is too old.
 If you get the error:
 ```
 Unable to init server: Could not connect: Connection refused
-gtk initialization failed
+gtk initialisation failed
 ```
 Make sure that:
 1. You installed [KB5020030] by going to "Settings" > "Update & Security" > "Windows Update". In the "Optional updates available" area, you’ll find the link to download and install the update.
