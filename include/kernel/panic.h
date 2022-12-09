@@ -9,4 +9,5 @@
                 "KERNEL PANIC\n    %s:%u:%s\n    " format, __FILE__, __LINE__, \
                 __func__, ##__VA_ARGS__);
 
+// Never call this directly, only through `kernel_panic` above.
 void kernel_panic_implementation(const char *message);

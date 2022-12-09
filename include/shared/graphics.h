@@ -25,8 +25,26 @@ typedef struct {
   uint8_t blue;
 } color_t;
 
-void draw_pixel(framebuffer_info_t *fb, point_t point, color_t color);
+void draw_pixel(framebuffer_info_t *fb, point_t position, color_t color);
 void draw_rectangle(framebuffer_info_t *fb, area_t area, color_t color);
-void draw_character(framebuffer_info_t *fb, point_t pos, color_t col, char c);
-void draw_string(framebuffer_info_t *fb, point_t pos, color_t col,
+void draw_character(framebuffer_info_t *fb, point_t position, color_t color,
+                    char c);
+void draw_string(framebuffer_info_t *fb, point_t position, color_t color,
                  const char *str);
+
+#define color_red                                                              \
+  (color_t) { .red = 0xFF, .blue = 0x00, .green = 0x00 }
+#define color_blue                                                             \
+  (color_t) { .red = 0x00, .blue = 0xFF, .green = 0x00 }
+#define color_green                                                            \
+  (color_t) { .red = 0x00, .blue = 0x00, .green = 0xFF }
+#define color_cyan                                                             \
+  (color_t) { .red = 0x00, .blue = 0xFF, .green = 0xFF }
+#define color_magenta                                                          \
+  (color_t) { .red = 0xFF, .blue = 0xFF, .green = 0x00 }
+#define color_yellow                                                           \
+  (color_t) { .red = 0xFF, .blue = 0x00, .green = 0xFF }
+#define color_white                                                            \
+  (color_t) { .red = 0xFF, .blue = 0xFF, .green = 0xFF }
+#define color_black                                                            \
+  (color_t) { .red = 0x00, .blue = 0x00, .green = 0x00 }

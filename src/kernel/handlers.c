@@ -10,7 +10,7 @@
 #include "kernel/task.h"
 
 // Interrupt request handler
-void irq_handler(saved_cpu_state_t *saved_state) {
+void irq_handler(saved_cpu_state_t *last_state) {
   kernel_panic("Received an unknown interrupt");
 }
 
