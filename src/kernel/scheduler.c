@@ -57,7 +57,6 @@ tid_t scheduler_task_add(char *task_name, task_main_f f, void *stack_pointer) {
               .sp = (size_t)stack_pointer,
               .pc = (size_t)(void *)f,
               .lr = (size_t)(void *)terminate_current_task,
-              .r0 = tid,
               .cpsr = get_current_program_status() & ~0xf,
           },
   };
