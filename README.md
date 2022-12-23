@@ -3,18 +3,39 @@
 ## Prepare
 
 ### Ubuntu
+
+0. Be sure you're on Ubuntu 22.04 LTS or higher:
+   ```sh
+   lsb_release -a
+   ```
+   otherwise do a release upgrade:
+   ```sh
+   > sudo apt update
+   > sudo do-release-upgrade
+   ```
 1. Update Apt and install dependencies:
    ```sh
    > sudo apt update
    > sudo apt install gcc-arm-none-eabi build-essential qemu-system-arm qemu
    ```
+2. You should have Qemu version 6 or higher to emulate FramboOS.
+   Check this by running:
+   ```sh
+   > qemu-system-arm --version
+   ```
 
 ### Mac
+
 1. Install [Homebrew] (this will also install the XCode Developer Tools if not yet installed).
 2. Update Brew and install dependencies:
    ```sh
    > brew update
    > brew install gcc-arm-embedded make git qemu
+   ```
+3. You should have Qemu version 6 or higher to emulate FramboOS.
+   Check this by running:
+   ```sh
+   > qemu-system-arm --version
    ```
 
 [Homebrew]: https://brew.sh
@@ -25,6 +46,10 @@
 2. Install [WSL] using PowerShell:
    ```sh
    > wsl --install
+   ```
+   ...or make sure you're on the latest [WSL] by running in PowerShell:
+   ```sh
+   > wsl --update
    ```
 3. Open the WSL shell and follow the instructions for Ubuntu above.
 
@@ -37,7 +62,7 @@ If you get the error:
 ```
 qemu-system-arm: -M raspi2b: unsupported machine type 'raspi2b'
 ```
-change the `TARGET` variable at the top of `build/Makefile` from `raspi2b` to `raspi2` and try again.
+Please make sure you're using Qemu 6 or higher!
 
 #### Gtk initialisation failed
 

@@ -3,8 +3,13 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define COLORDEPTH 24
-#define BYTES_PER_PIXEL COLORDEPTH / 8
+#define COLOR_DEPTH 24
+#define BYTES_PER_PIXEL (COLOR_DEPTH / 8)
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
+#define SCREEN_PITCH (SCREEN_WIDTH * BYTES_PER_PIXEL)
+#define SCREEN_BYTES (SCREEN_WIDTH * SCREEN_HEIGHT * BYTES_PER_PIXEL)
+#define FRAME_TIME_US (66 * 1000) // 66ms is more or less 15Hz
 
 typedef struct {
   int width;

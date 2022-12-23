@@ -7,6 +7,8 @@
 #include "kernel/scheduler.h"
 #include "kernel/task.h"
 #include "shared/graphics.h"
+#include "user/alloc.h"
+#include "user/tasks/pong.h"
 
 void kernel_init() {
   uart_init();
@@ -20,7 +22,12 @@ void kernel_init() {
   uart_log_info("Framebuffer: address=0x%x, width=%u, height=%u, size=%u",
                 fb->buf, fb->width, fb->height, fb->buf_size);
 
+
   uart_log_end("Initialised kernel");
 }
 
-void kernel_main() { kernel_init(); }
+
+void kernel_main() {
+  kernel_init();
+
+}

@@ -3,6 +3,7 @@
  */
 #pragma once
 
+#include <stdbool.h>
 #include <stdint.h>
 
 /*
@@ -16,16 +17,13 @@ static inline void delay(int32_t count) {
 }
 
 /*
- * Atomically swap two variables
- *
- * FIXME: use LDREX and STREX instead of SWP
+ * Compare the value in <ptr> to <expected_value>.
+ * If equal, stores <new_value> in <ptr> and returns true.
+ * Otherwise, does not modify the value in <ptr> and returns false.
  */
-static inline int32_t atomic_swap(uint32_t *ptr, uint32_t new_value) {
-  int32_t old_value;
-  __asm__ volatile("swp %[old_value], %[new_value], [%[ptr]]"
-                   : [old_value] "=r"(old_value)
-                   : [new_value] "r"(new_value), [ptr] "r"(ptr)
-                   :);
-
-  return old_value;
+static inline bool atomic_compare_exchange(uint32_t *ptr,
+                                           uint32_t expected_value,
+                                           uint32_t new_value) {
+  return __atomic_compare_exchange_n(ptr, &expected_value, new_value, false,
+                                     __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST);
 }

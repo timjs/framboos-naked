@@ -1,6 +1,7 @@
 #include "shared/strfmt.h"
 #include <limits.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #define STRFMT_ADD_CHAR(c)                                                     \
   if (bufptr < bufLen - 1) {                                                   \
@@ -42,16 +43,39 @@ const char *vstrfmt(char *buf, const size_t bufLen, const char *format,
                                    0xfU]);
           }
         }
-      } else if (*format == 'u') {
-        const unsigned int num = va_arg(argp, unsigned int);
+      } else if (*format == 'u' || *format == 'd') {
+        unsigned int num;
+        bool sign = false;
+        if (*format == 'd') {
+          int signed_num = va_arg(argp, int);
+          if (signed_num < 0) {
+            num = (uint32_t)-signed_num;
+            sign = true;
+          } else {
+            num = (uint32_t)signed_num;
+          }
+        } else {
+          num = va_arg(argp, unsigned int);
+        }
+
         unsigned int digitCount = 0;
-        unsigned int k = 1;
-        while (k <= num) {
+        uint64_t big_k = 1;
+        while (big_k <= num) {
           digitCount++;
+          big_k *= 10;
+        }
+
+        // Workaround for big numbers: we didn't implement '__aeabi_uldivmod' so
+        // we can't divide here. Instead we just multiply again, but one time
+        // less.
+        int k = 1;
+        for (uint32_t i = 0; digitCount > 0 && i < digitCount - 1; i++) {
           k *= 10;
         }
 
-        k /= 10;
+        if (sign) {
+          STRFMT_ADD_CHAR('-');
+        }
 
         if (digitCount == 0) {
           STRFMT_ADD_CHAR('0');

@@ -25,3 +25,5 @@ typedef struct {
 void timer_clear_irq_pending();
 void timer_set_timer1(uint32_t usecs);
 void timer_wait_us(uint32_t usecs);
+uint64_t timer_get_current_time();
+void timer_simulate_more_work();

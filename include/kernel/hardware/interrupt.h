@@ -11,17 +11,17 @@
 #define NUM_INTERRUPT_REQUESTS 96
 #define NUM_INTERRUPT_REQUESTS_PER_GROUP 32
 
-inline int interrupts_are_enabled(void) {
+static inline int interrupts_are_enabled(void) {
   return ((get_current_program_status() >> 7) & 1) == 0;
 }
 
-inline void interrupts_enable(void) {
+static inline void interrupts_enable(void) {
   if (!interrupts_are_enabled()) {
     __asm__ volatile("cpsie i");
   }
 }
 
-inline void interrupts_disable(void) {
+static inline void interrupts_disable(void) {
   if (interrupts_are_enabled()) {
     __asm__ volatile("cpsid i");
   }

@@ -24,12 +24,12 @@ typedef struct {
 
 void uart_log_cpu_state(saved_cpu_state_t *state);
 
-inline int get_current_program_status(void) {
+static inline int get_current_program_status(void) {
   int res;
   __asm__ volatile("mrs %[res], cpsr" : [res] "=r"(res)::);
   return res;
 }
 
-inline void set_current_program_status(int cpsr) {
+static inline void set_current_program_status(int cpsr) {
   __asm__ volatile("msr cpsr, %[cpsr]" : [cpsr] "=r"(cpsr)::);
 }

@@ -5,7 +5,8 @@
 #include "kernel/panic.h"
 #include "shared/bitfont.h"
 
-void draw_pixel(framebuffer_info_t *fb, point_t position, color_t color) {
+inline void draw_pixel(framebuffer_info_t *fb, point_t position,
+                       color_t color) {
   fb->buf[position.x * BYTES_PER_PIXEL + position.y * fb->pitch + 2] =
       color.red;
   fb->buf[position.x * BYTES_PER_PIXEL + position.y * fb->pitch + 1] =
@@ -15,7 +16,7 @@ void draw_pixel(framebuffer_info_t *fb, point_t position, color_t color) {
 }
 
 void draw_rectangle(framebuffer_info_t *fb, area_t area, color_t color) {
-  kernel_panic("No implementation of `draw_rectangle");
+  kernel_panic("No implementation of `draw_rectangle`");
 }
 
 void draw_character(framebuffer_info_t *fb, point_t position, color_t color,
@@ -37,5 +38,5 @@ void draw_character(framebuffer_info_t *fb, point_t position, color_t color,
 
 void draw_string(framebuffer_info_t *fb, point_t position, color_t color,
                  const char *str) {
-  kernel_panic("No implementation of `draw_string`")
+  kernel_panic("No implementation of `draw_string`");
 }

@@ -15,7 +15,7 @@
 static task_t tasks[MAX_TASKS] = {0};
 // The `current_task_index` represents the index into the `tasks` array.
 // The init task will be placed at index 0.
-static tid_t current_task_index = 0;
+static size_t current_task_index = 0;
 // A counter for the next task identifier.
 // The init task will have tid #1.
 static tid_t next_tid = 1;
@@ -24,19 +24,22 @@ static tid_t next_tid = 1;
 
 // Returns the next in use task after the current one.
 // Wraps around to 0 after reaching the end of the array.
-tid_t find_next_active_task() {
+size_t find_next_active_task() {
+  kernel_panic("No implementation of `find_next_active_task`");
 
   kernel_panic("There are no running tasks");
 }
 
 // Returns the index of the lowest free task slot in the `tasks` array.
 tid_t find_first_inactive_slot() {
+  kernel_panic("No implementation of `find_first_inactive_slot`");
 
   kernel_panic("There are no free task slots left");
 }
 
 // Is called when a task terminates.
 void terminate_current_task() {
+  kernel_panic("No implementation of `terminate_current_task`");
 
   while (true) {
   }
@@ -69,11 +72,14 @@ tid_t scheduler_task_add(char *task_name, task_main_f f, void *stack_pointer) {
 
 // Removes a task by setting it to unused.
 void scheduler_task_remove(tid_t tid) {
+  kernel_panic("No implementation of `scheduler_task_remove`");
+
   uart_log_info("Could not find and remove task #%u", tid);
 }
 
 // Returns the current running task.
 task_t *scheduler_current_task() {
+  kernel_panic("No implementation of `scheduler_current_task`");
 }
 
 /** Scheduling ****************************************************************/
@@ -96,10 +102,11 @@ void scheduler_start() {
   interrupt_enable(INTERRUPT_SYSTEM_TIMER_1);
   uart_log_begin("Starting system timer for scheduling");
   timer_set_timer1(TIME_QUANTUM);
-  while (true) {
-  }
+
+  terminate_current_task();
 }
 
 // Switch the running task, by modifying the CPU state in 'saved_state'.
 void scheduler_task_switch(saved_cpu_state_t *last_state) {
+  kernel_panic("No implementation of `scheduler_task_switch`");
 }
