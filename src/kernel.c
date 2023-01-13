@@ -9,6 +9,7 @@
 #include "shared/graphics.h"
 #include "user/alloc.h"
 #include "user/tasks/pong.h"
+#include "test/alloc.h"
 
 void kernel_init() {
   uart_init();
