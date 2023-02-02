@@ -41,7 +41,6 @@ irq_handler_asm_wrapper:
     msr     spsr_cxsf, r0
     ldm     sp, {r0-lr}^
     add     sp, #128
-    cpsie i
     nop
     movs    pc, lr
 
@@ -65,7 +64,6 @@ swi_handler_asm_wrapper:
     msr     spsr_cxsf, r0
     ldm     sp, {r0-lr}^
     add     sp, #128
-    cpsie i
     nop
     movs    pc, lr
 
