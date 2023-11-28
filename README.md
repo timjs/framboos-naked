@@ -1,10 +1,22 @@
 # FramboOS
 
+FramboOS is a minimal operating system (OS) for [Raspberry Pi 2 Model B](https://www.raspberrypi.com/products/raspberry-pi-2-model-b/).
+Actually, it is _very_ minimal.
+It has an UART interface for logging,
+and an interface to a framebuffer.
+That's really it...
+
+FramboOS can be loaded on a Raspberry Pi, but can also be emulated in [Qemu](https://www.qemu.org), which makes development more convenient.
+After booting, the only thing you'll see is a default _checker board_ screen.
+
+All other things need to be programmed by yourself!
+
+
 ## Prepare
 
 ### Ubuntu
 
-0. Be sure you're on Ubuntu 22.04 LTS or higher:
+1. Be sure you're on Ubuntu 22.04 LTS or higher:
    ```sh
    lsb_release -a
    ```
@@ -13,12 +25,12 @@
    > sudo apt update
    > sudo do-release-upgrade
    ```
-1. Update Apt and install dependencies:
+2. Update Apt and install dependencies:
    ```sh
    > sudo apt update
    > sudo apt install gcc-arm-none-eabi build-essential qemu-system-arm qemu
    ```
-2. You should have Qemu version 6 or higher to emulate FramboOS.
+3. You should have Qemu version 6 or higher to emulate FramboOS.
    Check this by running:
    ```sh
    > qemu-system-arm --version
@@ -55,6 +67,9 @@
 
 [WSL]: https://docs.microsoft.com/en-us/windows/wsl/install
 
+
+## Trouble shoot
+
 #### Unsupported machine type `raspi2b`
 
 When you're using [WSL] it could be you'll get a significant older version of Qemu which does not recognise `raspi2b` as a virtualisation target.
@@ -85,6 +100,21 @@ See also this [AskUbuntu question](https://askubuntu.com/questions/1389908/runni
 [KB5020030]: https://support.microsoft.com/en-gb/topic/november-15-2022-kb5020030-os-builds-19042-2311-19043-2311-19044-2311-and-19045-2311-preview-237a9048-f853-4e29-a3a2-62efdbea95e2
 
 
+## Download
+
+Download the FramboOS source code from its GitHub page.
+Clicking the green "Code" button at the top of the page reveals a couple of options.
+You can:
+
+* copy the SSH link and clone the repo with Git on the command line;
+* clone the repository with [GitHub Desktop](https://desktop.github.com);
+* Download a .zip-file and unpack it (discouraged)
+
+> [!CAUTION]
+> The preferred way is to use Git instead of a .zip download.
+> If, during any moment in time, the FramboOS source code gets updated
+> you'll be able to merge the differences with your own work by using Git's tools.
+
 ## Build
 
 1. `cd` into `build/`.
@@ -97,7 +127,8 @@ See also this [AskUbuntu question](https://askubuntu.com/questions/1389908/runni
 1. `cd` into `build/`,
 2. Run `make run`
 
-**Note:** `make run` will also build your project, so normally you only need to invoke `make run`
+> [!TIP]
+> `make run` will also build your project, so normally you only need to invoke `make run`
 
 ### Run on real hardware
 
@@ -105,7 +136,8 @@ See also this [AskUbuntu question](https://askubuntu.com/questions/1389908/runni
 2. Replace 'kernel7.img' with 'build/kernel7.img'
 3. Insert the SD card into the Raspberry Pi and power it up.
 
-**Note:** You'll need to run this on a Raspberry Pi 2B.
+> [!IMPORTANT]
+> You'll need to run this on a Raspberry Pi 2B.
 
 ## Code
 
