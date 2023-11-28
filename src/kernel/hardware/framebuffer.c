@@ -1,3 +1,4 @@
+#include "kernel/hardware/atomic.h"
 #include "kernel/hardware/framebuffer.h"
 #include "kernel/hardware/mailbox.h"
 #include "kernel/hardware/uart.h"
@@ -11,6 +12,11 @@ framebuffer_info_t fbinfo = (framebuffer_info_t){
 };
 
 void framebuffer_init(void) {
+  // Work around a concurrency bug in qemu.
+  // The bug causes qemu to segfault if we try to set up the framebuffer before qemu is able to show the UI.
+  // By delaying 20 million cycles this happens less frequently.
+  delay(20000000);
+
   uart_log_begin("Initialising framebuffer");
   static uint32_t request[] __attribute__((aligned(16))) = {
       // Header
