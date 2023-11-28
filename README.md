@@ -22,18 +22,18 @@ All other things need to be programmed by yourself!
    ```
    otherwise do a release upgrade:
    ```sh
-   > sudo apt update
-   > sudo do-release-upgrade
+   sudo apt update
+   sudo do-release-upgrade
    ```
 2. Update Apt and install dependencies:
    ```sh
-   > sudo apt update
-   > sudo apt install gcc-arm-none-eabi build-essential qemu-system-arm qemu
+   sudo apt update
+   sudo apt install gcc-arm-none-eabi build-essential qemu-system-arm qemu
    ```
 3. You should have Qemu version 6 or higher to emulate FramboOS.
    Check this by running:
    ```sh
-   > qemu-system-arm --version
+   qemu-system-arm --version
    ```
 
 ### Mac
@@ -41,13 +41,13 @@ All other things need to be programmed by yourself!
 1. Install [Homebrew] (this will also install the XCode Developer Tools if not yet installed).
 2. Update Brew and install dependencies:
    ```sh
-   > brew update
-   > brew install gcc-arm-embedded make git qemu
+   brew update
+   brew install gcc-arm-embedded make git qemu
    ```
 3. You should have Qemu version 6 or higher to emulate FramboOS.
    Check this by running:
    ```sh
-   > qemu-system-arm --version
+   qemu-system-arm --version
    ```
 
 [Homebrew]: https://brew.sh
@@ -57,11 +57,11 @@ All other things need to be programmed by yourself!
 1. Make sure your Windows installation is up to date.
 2. Install [WSL] using PowerShell:
    ```sh
-   > wsl --install
+   wsl --install
    ```
    ...or make sure you're on the latest [WSL] by running in PowerShell:
    ```sh
-   > wsl --update
+   wsl --update
    ```
 3. Open the WSL shell and follow the instructions for Ubuntu above.
 
@@ -91,7 +91,7 @@ Make sure that:
 1. You installed [KB5020030] by going to "Settings" > "Update & Security" > "Windows Update". In the "Optional updates available" area, you’ll find the link to download and install the update.
 2. Run using PowerShell:
    ```sh
-   > wsl --update
+   wsl --update
    ```
 3. Reboot your machine.
 
