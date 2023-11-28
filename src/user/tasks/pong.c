@@ -18,8 +18,8 @@
 typedef struct {
   int ball_x;
   int ball_y;
-  int vspeed;
-  int hspeed;
+  int speed_v;
+  int speed_h;
   int left_paddle_y;
   int right_paddle_y;
 } pong_state_t;
@@ -38,19 +38,19 @@ framebuffer_info_t render_surface = (framebuffer_info_t){
 static volatile pong_state_t state = (pong_state_t){
     .ball_x = 100,
     .ball_y = 100,
-    .vspeed = -9,
-    .hspeed = 7,
+    .speed_v = -9,
+    .speed_h = 7,
     .left_paddle_y = 0,
     .right_paddle_y = 200,
 };
 
 void state_tick(volatile pong_state_t *state) {
   // A: Update the position of the ball
-  state->ball_x += state->hspeed;
-  state->ball_y += state->vspeed;
+  state->ball_x += state->speed_h;
+  state->ball_y += state->speed_v;
 
   // B: Update the position of the paddles
-  if (state->hspeed < 0) {
+  if (state->speed_h < 0) {
     if (state->ball_y + BALL_SIZE / 2 <
         state->left_paddle_y + PADDLE_HEIGHT / 2) {
       state->left_paddle_y -= 2;
@@ -71,19 +71,19 @@ void state_tick(volatile pong_state_t *state) {
 
   // C: Make the ball bounce if it touches the left or right edges of the screen
   if (state->ball_x < 0 || state->ball_x + BALL_SIZE >= SCREEN_WIDTH) {
-    state->hspeed *= -1;
+    state->speed_h *= -1;
   }
 
   // D: Make the ball bounce if it touches the top or bottom edges of the screen
   if (state->ball_y < 0 || state->ball_y + BALL_SIZE >= SCREEN_HEIGHT) {
-    state->vspeed *= -1;
+    state->speed_v *= -1;
   }
 
   // E: Make the ball bounce if it touches the left paddle
   if (state->ball_x <= PADDLE_PADDING + PADDLE_WIDTH &&
       state->ball_y + BALL_SIZE >= state->left_paddle_y &&
       state->ball_y < state->left_paddle_y + PADDLE_HEIGHT) {
-    state->hspeed *= -1;
+    state->speed_h *= -1;
     state->ball_x = PADDLE_PADDING + PADDLE_WIDTH;
   }
 
@@ -92,7 +92,7 @@ void state_tick(volatile pong_state_t *state) {
           SCREEN_WIDTH - PADDLE_PADDING - PADDLE_WIDTH &&
       state->ball_y + BALL_SIZE >= state->right_paddle_y &&
       state->ball_y < state->right_paddle_y + PADDLE_HEIGHT) {
-    state->hspeed *= -1;
+    state->speed_h *= -1;
     state->ball_x = SCREEN_WIDTH - PADDLE_PADDING - PADDLE_WIDTH - BALL_SIZE;
   }
 
@@ -130,10 +130,9 @@ void state_render(framebuffer_info_t *target_fb, volatile pong_state_t *state) {
 
 }
 
-void task_pong_loop() {
+void task_pong_tick_loop() {
   uart_log_info("Entering pong loop");
 
-  framebuffer_info_t *fb = framebuffer_get_info();
   uint64_t next_update_time = timer_get_current_time();
   while (true) {
     next_update_time += FRAME_TIME_US;
@@ -151,8 +150,9 @@ void task_pong_loop() {
 void screensaver_start() {
   uart_log_begin("Starting pong screensaver");
 
-  uint8_t task_pong_loop_stack[4096] __attribute__((aligned(8)));
-  scheduler_task_add("pong loop", task_pong_loop, task_pong_loop_stack + 4096);
+  uint8_t task_pong_tick_stack[4096] __attribute__((aligned(8)));
+  scheduler_task_add("pong tick loop", task_pong_tick_loop,
+                     task_pong_tick_stack + 4096);
 
   scheduler_start();
 }
