@@ -24,14 +24,14 @@ static tid_t next_tid = 1;
 
 // Returns the next in use task after the current one.
 // Wraps around to 0 after reaching the end of the array.
-size_t find_next_active_task() {
+size_t find_next_active_task_index() {
   kernel_panic("No implementation of `find_next_active_task`");
 
   kernel_panic("There are no running tasks");
 }
 
 // Returns the index of the lowest free task slot in the `tasks` array.
-tid_t find_first_inactive_slot() {
+size_t find_first_inactive_task_slot() {
   kernel_panic("No implementation of `find_first_inactive_slot`");
 
   kernel_panic("There are no free task slots left");
@@ -49,7 +49,7 @@ void terminate_current_task() {
 
 // Spawns a new task.
 tid_t scheduler_task_add(char *task_name, task_main_f f, void *stack_pointer) {
-  tid_t new_index = find_first_inactive_slot();
+  tid_t new_index = find_first_inactive_task_slot();
   tid_t tid = next_tid++;
   tasks[new_index] = (task_t){
       .tid = tid,
@@ -87,7 +87,7 @@ task_t *scheduler_current_task() {
 // Put the `init` task in the zeroth slot of the `tasks` array.
 void scheduler_init() {
   uart_log_begin("Setting up init task");
-  tid_t new_index = find_first_inactive_slot();
+  tid_t new_index = find_first_inactive_task_slot();
   tid_t tid = next_tid++;
   tasks[new_index] = (task_t){
       .task_name = "<init task>",

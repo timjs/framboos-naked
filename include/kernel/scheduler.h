@@ -1,8 +1,6 @@
 #pragma once
 
 #include "kernel/task.h"
-#include <stddef.h>
-#include <stdint.h>
 
 #define MAX_TASKS 1024
 

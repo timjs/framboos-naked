@@ -7,9 +7,9 @@
 #include "kernel/scheduler.h"
 #include "kernel/task.h"
 #include "shared/graphics.h"
+#include "test/alloc.h"
 #include "user/alloc.h"
 #include "user/tasks/pong.h"
-#include "test/alloc.h"
 
 void kernel_init() {
   uart_init();
