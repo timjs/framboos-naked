@@ -2,8 +2,6 @@
 #include "kernel/hardware/uart.h"
 #include "kernel/scheduler.h"
 #include "shared/graphics.h"
-#include "shared/strfmt.h"
-#include <stdbool.h>
 
 extern framebuffer_info_t *fb;
 
