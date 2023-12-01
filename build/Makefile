@@ -28,7 +28,7 @@ ASSMBLS = $(wildcard $(SRC_DIR)/*.s) $(wildcard $(SRC_DIR)/*/*.s) $(wildcard $(S
 
 OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SOURCES))
 OBJECTS += $(patsubst $(SRC_DIR)/%.s, $(OBJ_DIR)/%.o, $(ASSMBLS))
-OBJECTS += objects/bootimg.o
+OBJECTS += objects/startup_picture.o
 
 LD_SCRIPT = linker.ld
 
@@ -37,7 +37,7 @@ build: $(OBJECTS) $(HEADERS)
 	$(CC) -T $(LD_SCRIPT) -o $(IMAGE).elf $(L_FLAGS) $(OBJECTS)
 	$(OBJCOPY) $(IMAGE).elf -O binary $(IMAGE).img
 
-objects/bootimg.o: $(SRC_DIR)/bootimg.bin
+objects/startup_picture.o: $(SRC_DIR)/startup_picture.bin
 	$(OBJCOPY) -I binary -O elf32-littlearm -B $(ARCH) $< $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
