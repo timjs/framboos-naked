@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "gdb",
+            "request": "attach",
+            "name": "Debug in QEMU",
+            "executable": "${workspaceFolder}/build/kernel7.elf",
+            "target": "localhost:1234",
+            "remote": true,
+            "cwd": "${workspaceRoot}/build/",
+            "preLaunchTask": "runqemu",
+            "gdbpath": "gdb-multiarch"
+        }
+    ]   
+}

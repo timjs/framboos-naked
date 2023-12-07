@@ -1,0 +1,39 @@
+{
+    "files.associations": {
+        "util.h": "c",
+        "stdint.h": "c",
+        "stddef.h": "c",
+        "panic.h": "c",
+        "functional": "c",
+        "algorithm": "c",
+        "uart.h": "c",
+        "mailbox.h": "c",
+        "rpi2b.h": "c",
+        "stdbool.h": "c",
+        "timer.h": "c",
+        "interrupt.h": "c",
+        "bitfont.h": "c",
+        "alloc.h": "c",
+        "spinlock.h": "c",
+        "mt_alloc.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "makefile.makeDirectory": "build",
+    "makefile.compileCommandsPath": "build/compile_commands.json",
+    "makefile.additionalCompilerNames": [
+        "clang"
+    ],
+    "makefile.dryrunSwitches": [
+        "--keep-going",
+        "--print-directory",
+        "--always-make"
+    ],
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "${workspaceFolder}/build",
+            "binaryPath": "${workspaceFolder}/build/kernel7.elf",
+            "binaryArgs": []
+        }
+    ]
+}
