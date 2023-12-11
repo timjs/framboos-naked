@@ -2,12 +2,11 @@
 
 FramboOS is a minimal operating system (OS) for [Raspberry Pi 2 Model B](https://www.raspberrypi.com/products/raspberry-pi-2-model-b/).
 Actually, it is _very_ minimal.
-It has an UART interface for logging,
-and an interface to a framebuffer.
+It has a UART interface for logging and an interface to a frame buffer.
 That's really it...
 
 FramboOS can be loaded on a Raspberry Pi, but can also be emulated in [Qemu](https://www.qemu.org), which makes development more convenient.
-After booting, the only thing you'll see is a default _checker board_ screen.
+After booting, the only thing you'll see is a default _checkerboard_ screen.
 
 All other things need to be programmed by yourself!
 
@@ -68,20 +67,20 @@ All other things need to be programmed by yourself!
 [WSL]: https://docs.microsoft.com/en-us/windows/wsl/install
 
 
-## Trouble shoot
+## Troubleshoot
 
 #### Unsupported machine type `raspi2b`
 
-When you're using [WSL] it could be you'll get a significant older version of Qemu which does not recognise `raspi2b` as a virtualisation target.
+When you're using [WSL] it could be you'll get a significantly older version of Qemu which does not recognize `raspi2b` as a virtualization target.
 If you get the error:
 ```
 qemu-system-arm: -M raspi2b: unsupported machine type 'raspi2b'
 ```
 Please make sure you're using Qemu 6 or higher!
 
-#### Gtk initialisation failed
+#### Gtk initialization failed
 
-When you're Windows install is not completely up to date, you'll get a [WSL] version which is too old.
+When you're Windows install is not completely up to date, you'll get a [WSL] version that is too old.
 If you get the error:
 ```
 Unable to init server: Could not connect: Connection refused
@@ -108,7 +107,7 @@ You can:
 
 * copy the SSH link and clone the repo with Git on the command line;
 * clone the repository with [GitHub Desktop](https://desktop.github.com);
-* Download a .zip-file and unpack it (discouraged)
+* Download a .zip file and unpack it (discouraged)
 
 > [!CAUTION]
 > The preferred way is to use Git instead of a .zip download.
@@ -141,12 +140,14 @@ You can:
 
 ## Code
 
-If you're using VSCode, you should install some extensions:
+You can use any text editor you like to work on FramboOS.
+If you don't know what to choose, we recommend using [VSCode](https://code.visualstudio.com) or its nephew [VSCodium](https://vscodium.com).
 
-* https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd
-* https://marketplace.visualstudio.com/items?itemName=ms-vscode.makefile-tools
-* https://marketplace.visualstudio.com/items?itemName=webfreak.debug
-
-This will enable error and warning squiggles and debugging support (Press F5).
-
-When first running, you may need to update the compilation cache: Press `Control+Shift+P`, then choose `Makefile: Clean configure` in the menu that appears.
+1. Install [VSCode](https://code.visualstudio.com) or [VSCodium](https://vscodium.com).
+2. To enable error and warning squiggles and debugging support install these extensions:
+    * https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd
+    * https://marketplace.visualstudio.com/items?itemName=ms-vscode.makefile-tools
+    * https://marketplace.visualstudio.com/items?itemName=webfreak.debug
+3. _After_ running a `make build` in the `build/` directory, you may need to update the compilation cache:
+    * Press `Control+Shift+P`, then choose _Makefile: Clean configure_ in the menu that appears.
+    * Again press `Control+Shift+P`, and choose _Developer: Reload window_.
