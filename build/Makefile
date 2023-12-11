@@ -14,6 +14,9 @@ C_FLAGS = -msoft-float -std=c11 -mcpu=$(CPU) -fpic -ffreestanding -g
 # Prevent the compiler from assuming that null pointers are invalid.
 # Now that we're the operating system, 0x0 actually contains useful data for us!
 C_FLAGS += -fno-delete-null-pointer-checks
+# Implicit function declaration warnings are (almost) always an error in the code,
+# so let's make sure the compiler also treats it as an error
+C_FLAGS += -Werror-implicit-function-declaration
 SRC_FLAGS = -O1 -Wall -Wextra
 L_FLAGS = -ffreestanding -O1 -nostdlib
 
