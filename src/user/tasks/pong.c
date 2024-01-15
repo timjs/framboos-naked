@@ -125,7 +125,7 @@ void state_render(framebuffer_info_t *target_fb, volatile pong_state_t *state) {
 
   if (state->right_paddle_y < 0 ||
       state->right_paddle_y + PADDLE_HEIGHT >= target_fb->height) {
-    kernel_panic("Left paddle is out of bounds: y=%d", state->right_paddle_y);
+    kernel_panic("Right paddle is out of bounds: y=%d", state->right_paddle_y);
   }
 
 }
