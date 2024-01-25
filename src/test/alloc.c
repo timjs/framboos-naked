@@ -138,12 +138,19 @@ void test_spacing() {
   // If this crashes, your headers are somehow overlapping your memory areas. Or
   // maybe the size you're calculating is not correct.
   uart_log_info(
-      "If this is the last message you see, the data pointers you return are "
-      "overlapping with your headers. And I just filled the data pointers with "
-      "new values, which is causing your code to hang.") free(a);
+    "If this is the last message you see, the data pointers you return are "
+    "overlapping with your headers. And I just filled the data pointers with "
+    "new values, which is causing your code to hang."
+  );
+  
+  free(a);
   free(new_b1);
   free(new_b2);
   free(c);
+
+  uart_log_info(
+    "Your code did not hang. You can ignore the previous message."
+  );
 }
 
 void test_unique_memory() {
@@ -206,7 +213,7 @@ void test_out_of_memory() {
 void test_merging_free() {
   void *allocations[10] = {NULL};
 
-  // First we fill the entire memory with blocks of 1024 bytes.
+  // First we fill the entire memory with blocks of TEST_BLOCK_SIZE bytes.
   uart_log_begin("Filling entire memory");
   for (int n = 0;; n++) {
     void *area = malloc(TEST_BLOCK_SIZE);

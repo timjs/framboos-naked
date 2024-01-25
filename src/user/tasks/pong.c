@@ -143,6 +143,14 @@ void task_pong_tick_loop() {
     if (current_time < next_update_time) {
       timer_wait_us(next_update_time - current_time);
     }
+
+    if (current_time > next_update_time) {
+      int backlog = current_time - next_update_time;
+      if (backlog > 30 * FRAME_TIME_US) {
+        uart_log_warn("Unable to keep up! Skipping %u us", backlog);
+        next_update_time = current_time;
+      }
+    }
   }
 }
 
