@@ -1,4 +1,7 @@
-# 2. Roosteren
+#import("layout.typ"): layout
+#show: layout
+
+= 2. Roosteren
 
 In deze opdracht ga je aan de slag om een preemptive scheduler te maken.
 Hierbij moet je gebruik gaan maken van de system timer die de Raspberry Pi biedt.
@@ -6,16 +9,16 @@ Hierbij moet je gebruik gaan maken van de system timer die de Raspberry Pi biedt
 Dit is een grotere opdracht dan de vorige,
 waarbij de eerste inschatting is dat je er ongeveer 2 tot 3 keer zoveel aan kwijt bent.
 
-## Voorbereiding
+== Voorbereiding
 
 0.  Haal de laatste versie van FramboOS van GitHub.
     Dit kun je doen door in je bestaande repository `git pull` uit te voeren.
     Los eventuele merge conflicten op en controleer of je kernel nog steeds compileert en draait.
 
-## Opzet
+== Opzet
 
-In `task.h` vind je de datastructuur voor een Task Control Block (TCB),
-het equivalent voor een Process Control Block in FramboOS:
+In `task.h` vind je de datastructuur voor een _Task Control Block_ (TCB),
+het equivalent voor een _Process Control Block_ (PCB) in FramboOS:
 ```c
 typedef size_t tid_t;
 
@@ -49,7 +52,7 @@ void scheduler_task_switch(saved_cpu_state_t *last_state);
 
 Deze procedures gaan we allemaal implementeren.
 
-## Hulpprocedures
+== Hulpprocedures
 
 Neem een kijkje in `scheduler.c`.
 Daarin vind je de toestand van de scheduler, opgeslagen in variabelen die globaal zijn voor dit bestand.
@@ -81,21 +84,21 @@ Allereerst schrijven we drie hulpprocedures die handig zijn bij de volgende onde
     zijn alle slots in eerste instantie inactief.
     Bij de initialisatie van de scheduler zullen we het eerste slot vullen.
 4.  `void terminate_current_task()` termineert de huidige taak door zijn `in_use` veld op `false` te zetten.
-    **Belangrijk!**
+    *Belangrijk!*
     Eindig deze procedure met een oneindige loop!
 
 Maak bij het schrijven van deze procedures goed gebruik van de log functionaliteit uit `kernel/hardware/uart.h`,
 zodat je via de console informatie kunt krijgen over wat er gebeurt.
 
-## Taken toevoegen en verwijderen
+== Taken toevoegen en verwijderen
 
 Bekijk `tid_t scheduler_task_add(char *, task_main_f, void *)`.
 Hierin wordt achtereenvolgens:
 
-* het eerst volgende inactieve slot gezocht;
-* de volgende task identifier bepaald;
-* in het gevonden inactieve slot een nieuw TCB geplaatst met daarin de opgeslagen CPU toestand;
-* de index van de taak geretourneerd.
+- het eerst volgende inactieve slot gezocht;
+- de volgende task identifier bepaald;
+- in het gevonden inactieve slot een nieuw TCB geplaatst met daarin de opgeslagen CPU toestand;
+- de index van de taak geretourneerd.
 
 5.  Bekijk goed welke informatie van een taak wordt geïnitialiseerd in het TCB.
     Beschrijf voor de registers SP, PC, en LR waarvoor ze gebruikt worden.
@@ -105,7 +108,7 @@ Hierin wordt achtereenvolgens:
 6.  Schrijf nu een implementatie voor `void scheduler_task_remove(tid_t)`.
     Zoek door de array van taken naar de juiste taak, en zet diens `in_use` veld op `false`.
 
-## Taken roosteren
+== Taken roosteren
 
 We hebben nu de basisingredienten voor een task scheduler.
 We kunnen taken opzoeken, verwijderen en toevoegen.
@@ -121,9 +124,9 @@ Voor onze scheduler gebruiken we #1.
 De communicatie met de system timer gaat door middel van _hardware interrupts_.
 Om de scheduler te starten doen we het volgende (zie `void scheduler_start()`):
 
-* We starten met luisteren naar interrupts van system timer #1.
-* We stellen de timer voor de eerste keer in met het `TIME_QUANTUM`.
-* We gaan in een oneindige loop.
+- We starten met luisteren naar interrupts van system timer #1.
+- We stellen de timer voor de eerste keer in met het `TIME_QUANTUM`.
+- We gaan in een oneindige loop.
 
 Wanneer de timer af gaat ontvangt FramboOS een hardware interrupt.
 Op het moment dat dit het geval is, willen we een task switch uitvoeren.
@@ -143,35 +146,35 @@ Momenteel is deze geimplemeneerd met een kernel panic.
     b.  Welke instructie springt naar de procedure `void irq_handler(saved_cpu_state_t *)` uit `kernel/handlers.c`?
     c.  Welke instructies zorgen er voor dat de opgeslagen registers weer van de stack teruggeplaatst in de CPU?
 
-    *Tip* Gebruik het internet om de betekenis van de assembly instructies te achterhalen mocht je die niet kennen. Het gaat er om dat je een *globaal* idee hebt van wat de instructies doen.
+    *Tip.* Gebruik het internet om de betekenis van de assembly instructies te achterhalen mocht je die niet kennen. Het gaat er om dat je een _globaal_ idee hebt van wat de instructies doen.
 8.  Breidt de IRQ handler in `kernel/handlers.c` uit met het volgende:
-    * Controleer of `INTERRUPT_SYSTEM_TIMER_1` op het moment van aanroepen lopend is.
+    - Controleer of `INTERRUPT_SYSTEM_TIMER_1` op het moment van aanroepen lopend is.
       Maak hierbij gebruik van `bool irq_is_pending(interrupt_id_t)` uit `kernel/hardware/interrupt.h`.
-    * Wanneer dat het geval is roep je `void scheduler_task_switch(saved_cpu_state_t*)` aan.
-    * **Belangrijk!**
+    - Wanneer dat het geval is roep je `void scheduler_task_switch(saved_cpu_state_t*)` aan.
+    - *Belangrijk!*
       Vergeet vervolgens niet de lopende interrupt te wissen met `void timer_clear_irq_pending()`!
       Doe dit voordat je de interrupt daadwerkelijk afhandelt.
 
 Nu kunnen we echt de task switcher implementeren.
 
 9.  Implementeer `void scheduler_task_switch(saved_cpu_state_t*)` in `kernel/schedular.c`.
-    * Zoek de huidige actieve taak op en de volgende te actieveren taak.
+    - Zoek de huidige actieve taak op en de volgende te actieveren taak.
       Gebruik hiervoor je gebouwde hulpfuncties.
-    * Kopieër met `memcpy` één-op-één de CPU toestand van vóór de interrupt
+    - Kopieër met `memcpy` één-op-één de CPU toestand van vóór de interrupt
       naar het TCB van de _oude_ taak,
       zodat deze later weer door kan zoals die geëindigd was.
-    * Kopieër met `memcp` één-op-één de CPU toestand uit het TCB van de _nieuwe_ taak
+    - Kopieër met `memcp` één-op-één de CPU toestand uit het TCB van de _nieuwe_ taak
       naar de locatie van de laatste CPU toestand vóór de interrupt.
-    * Zet timer #1 weer op het `TIME_QUANTUM` zodat we na deze tijd weer een nieuwe interrupt krijgen.
-    * **Let op**:
-      * De signatuur van `mempcy` is `void memcpy(void *dest, void *source, size_t n)`.
+    - Zet timer #1 weer op het `TIME_QUANTUM` zodat we na deze tijd weer een nieuwe interrupt krijgen.
+    - *Let op:*
+      - De signatuur van `mempcy` is `void memcpy(void *dest, void *source, size_t n)`.
         Het _eerste_ argument is dus de destination, het _tweede_ de source.
-      * Het derde argument van `memcpy` is de grootte van het stuk geheugen dat je wilt kopieëren.
+      - Het derde argument van `memcpy` is de grootte van het stuk geheugen dat je wilt kopieëren.
         In dit geval kun je aan de grootte komen met de expressie `sizeof(saved_cpu_state_t)`.
-      * Vergeet absoluut niet timer #1 weer op het tijdsquantum te zetten,
+      - Vergeet absoluut niet timer nummer 1 weer op het tijdsquantum te zetten,
         anders wissel je nooit meer van taak!
 
-## Taken testen
+== Taken testen
 
 Hopelijk is alles goed gegaan.
 We gaan je code nu testen door twee taken concurrent uit te laten voeren.
@@ -208,9 +211,9 @@ Laatste vraag om je begrip te testen.
 11. Stel dat `task_rect1` over deze 4KiB aan geheugen heen gaat.
     Wat gebeurt er?
 
-## Inleveren
+== Inleveren
 
-Lever een zip *van je hele project* in via yOUlearn.
+Lever een zip _van je hele project_ in via yOUlearn.
 Probeer dit te doen vóór de volgende bijeenkomst, dus voor dinsdag 20 december.
 Mocht dit niet lukken, neem dan contact op met de docent.
 Geef hieronder aan hoeveel uren je met deze opdracht bezig bent geweest.
@@ -219,8 +222,8 @@ Tijd gestoken in deze opdracht: ... uur.
 
 Het moeilijkste aan deze opdracht vond ik:
 
-* ...
+- ...
 
 Het leukste aan deze opdracht vond ik:
 
-* ...
+- ...
