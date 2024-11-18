@@ -80,7 +80,7 @@ Please make sure you're using Qemu 6 or higher!
 
 #### Gtk initialization failed
 
-When you're Windows install is not completely up to date, you'll get a [WSL] version that is too old.
+When your Windows install is not completely up to date, you'll get a [WSL] version that is too old.
 If you get the error:
 ```
 Unable to init server: Could not connect: Connection refused
