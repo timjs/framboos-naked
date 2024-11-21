@@ -30,7 +30,8 @@ All other things need to be programmed by yourself!
    sudo apt install gcc-arm-none-eabi build-essential qemu-system-arm qemu
    ```
 > [!NOTE]
-> On Ubuntu 24.04, the qemu dependency must be omitted.
+> On Ubuntu 24.04 LTS, the `qemu` dependency can be omitted,
+> It is enough to install `qemu-system-arm`
 3. You should have Qemu version 6 or higher to emulate FramboOS.
    Check this by running:
    ```sh
